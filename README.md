@@ -1,1 +1,1 @@
-I have this laravel folder in which I have a 
+This is a new sanskrit shloka application
