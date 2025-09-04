@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('q_a_pairs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('shloka_id')->constrained('shlokas')->onDelete('cascade');
+            $table->text('question');
+            $table->text('answer');
+            $table->json('keywords')->nullable();
+            $table->text('context')->nullable();
+            $table->foreignId('created_by')->constrained('users');
+            $table->boolean('approved')->default(false);
+            $table->foreignId('approved_by')->nullable()->constrained('users');
+            $table->timestamp('approved_at')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('q_a_pairs');
+    }
+};
